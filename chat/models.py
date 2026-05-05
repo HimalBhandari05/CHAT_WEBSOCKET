@@ -47,7 +47,6 @@ class Message(models.Model):
         return f"From {self.from_user.username} to {self.to_user.username}: {self.content} [{self.timestamp}]"
 
 
-# Keep last_message in sync
 @receiver(post_save, sender=Message)
 def _set_last_message_on_save(sender, instance, created, **kwargs):
     conv = instance.conversation

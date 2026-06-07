@@ -15,7 +15,20 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+from django.conf import settings
+from rest_framework.routers import DefaultRouter, SimpleRouter
+from chat.views import UserViewSet, ConversationViewSet , MessageViewSet
+if settings.DEBUG:
+    router = DefaultRouter()
+else:
+    router = SimpleRouter()
 
+router.register("users", UserViewSet)
+router.register("conversations", ConversationViewSet)
+router.register("messages", MessageViewSet)
+
+app_name = "api"
+urlpatterns = router.urls
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-+nzzy%52t2-0^i86z%m$k35&7j9sjj#@e1mxq&i-o2j@pl&6dv"
 
